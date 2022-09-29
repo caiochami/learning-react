@@ -9,7 +9,7 @@ export default function NavigationItem({ item }) {
   return (
     <div className="flex flex-col">
       <Link
-        to={item.children?.length ? item.href : "#"}
+        to={!item.children?.length ? item.href : "#"}
         className={classNames(
           item.current
             ? "bg-indigo-800 text-white"
