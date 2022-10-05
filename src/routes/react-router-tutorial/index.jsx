@@ -1,8 +1,13 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
-import Button from "../../components/Button";
+import { Link, useLoaderData } from "react-router-dom";
 import CreateContact from "../../components/Contacts/CreateContact";
 import SearchInput from "../../components/SearchInput";
+import { getContacts } from "../../contacts";
+
+export async function contactsLoader() {
+  const contacts = await getContacts();
+  return { contacts };
+}
 
 export default function Index() {
   const { contacts } = useLoaderData();
@@ -20,7 +25,7 @@ export default function Index() {
           <span>
             {contacts.map((contact) => (
               <li key={contact.id}>
-                <Link to={`contacts/${contact.id}`}>
+                <Link to={`/contacts/${contact.id}`}>
                   {contact.first || contact.last ? (
                     <>
                       {contact.first} {contact.last}

@@ -1,6 +1,13 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import { Form } from "react-router-dom";
+import { createContact } from "../../contacts";
 import Button from "../Button";
+
+export async function storeContact() {
+  const contacts = await createContact();
+  return { contacts };
+}
 
 export default function CreateContact() {
   let [isOpen, setIsOpen] = useState(false);
@@ -49,18 +56,16 @@ export default function CreateContact() {
                   >
                     Create Contact
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">Form goes here...</p>
-                  </div>
-
-                  <div className="mt-4 flex justify-end gap-2">
-                    <Button onClick={closeModal} color="secondary">
-                      Cancel
-                    </Button>
-                    <Button onClick={closeModal} color="success">
-                      Save
-                    </Button>
-                  </div>
+                  <Form method="post" name="createContactForm">
+                    <div className="mt-4 flex justify-end gap-2">
+                      <Button onClick={closeModal} color="secondary">
+                        Cancel
+                      </Button>
+                      <Button type="submit" color="success">
+                        Save
+                      </Button>
+                    </div>
+                  </Form>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

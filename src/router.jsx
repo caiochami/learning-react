@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./error-page";
-import Contact from "./routes/react-router-tutorial/contact";
+import Contact, { contactLoader } from "./routes/react-router-tutorial/contact";
 import Root from "./routes/root";
-import ReactRouterTutorialIndex from "./routes/react-router-tutorial/index";
+import ReactRouterTutorialIndex, {
+  contactsLoader,
+} from "./routes/react-router-tutorial/index";
 
 import {
   CalendarIcon,
@@ -13,12 +15,7 @@ import {
   UsersIcon,
 } from "@heroicons/react/24/outline";
 
-import { getContacts } from "./contacts";
-
-async function contactsLoader() {
-  const contacts = await getContacts();
-  return { contacts };
-}
+import { storeContact } from "./components/Contacts/CreateContact";
 
 export const navigation = [
   {
@@ -74,10 +71,12 @@ export default createBrowserRouter([
         path: "/react-router-tutorial",
         element: <ReactRouterTutorialIndex />,
         loader: contactsLoader,
+        action: storeContact,
       },
       {
         path: "contacts/:contactId",
         element: <Contact />,
+        loader: contactLoader,
       },
     ],
   },

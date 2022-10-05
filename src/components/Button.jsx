@@ -4,6 +4,7 @@ export default function Button({
   size = "md",
   className = "",
   children,
+  type = "button",
 }) {
   const sizes = {
     xs: "px-2.5 py-1.5 text-xs",
@@ -23,7 +24,7 @@ export default function Button({
 
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       className={`${sizes[size]} ${className} inline-flex items-center rounded border border-transparent font-medium text-white ${colors[color]} focus:outline-none focus:ring-2 focus:ring-offset-2`}
     >
