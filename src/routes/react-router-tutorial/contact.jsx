@@ -1,5 +1,8 @@
 import { Form, useLoaderData } from "react-router-dom";
+import Avatar from "../../components/Avatar";
+import EditContact from "../../components/Contacts/EditContact";
 import { getContact } from "../../contacts";
+import { getInitials } from "../../utils/helpers";
 
 export async function contactLoader({ params }) {
   return getContact(params.contactId);
@@ -8,38 +11,38 @@ export async function contactLoader({ params }) {
 export default function Contact() {
   const contact = useLoaderData();
 
+  const name =
+    contact.first_name || contact.last_name
+      ? `${contact.first_name} ${contact.last_name}`
+      : "No Name";
+
   return (
-    <div id="contact">
-      <div>
-        <img key={contact.avatar} src={contact.avatar || null} />
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-row relative gap-2 items-center">
+        <Avatar>{getInitials(name)}</Avatar>
+        <h1>
+          <i>{name}</i>
+          {contact.twitter && (
+            <p>
+              <a
+                className="text-blue-500"
+                target="_blank"
+                href={`https://twitter.com/${contact.twitter}`}
+              >
+                {contact.twitter}
+              </a>
+            </p>
+          )}
+        </h1>
+        <div className="absolute top-0 right-0">
+          <Favorite contact={contact} />
+        </div>
       </div>
 
+      {contact.notes && <p>{contact.notes}</p>}
       <div>
-        <h1>
-          {contact.first || contact.last ? (
-            <>
-              {contact.first} {contact.last}
-            </>
-          ) : (
-            <i>No Name</i>
-          )}{" "}
-          <Favorite contact={contact} />
-        </h1>
-
-        {contact.twitter && (
-          <p>
-            <a target="_blank" href={`https://twitter.com/${contact.twitter}`}>
-              {contact.twitter}
-            </a>
-          </p>
-        )}
-
-        {contact.notes && <p>{contact.notes}</p>}
-
-        <div>
-          <Form action="edit">
-            <button type="submit">Edit</button>
-          </Form>
+        <div className="flex flex-row items-center">
+          <EditContact contact={contact} />
           <Form
             method="post"
             action="destroy"

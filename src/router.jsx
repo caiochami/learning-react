@@ -16,6 +16,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 import { storeContact } from "./components/Contacts/CreateContact";
+import { action as updateContact } from "./components/Contacts/EditContact";
 
 export const navigation = [
   {
@@ -77,6 +78,7 @@ export default createBrowserRouter([
         path: "contacts/:contactId",
         element: <Contact />,
         loader: contactLoader,
+        action: updateContact,
       },
     ],
   },

@@ -12,37 +12,46 @@ export async function contactsLoader() {
 export default function Index() {
   const { contacts } = useLoaderData();
 
+  let filteredContacts = contacts;
+
+  const filter = (event) => {
+    if (!event.target.value) return contacts;
+
+    filteredContacts = contacts.filter(
+      (contact) =>
+        contact.first_name == event.target.value ||
+        contact.last_name == event.target.value
+    );
+  };
+
   return (
-    <div className="flex flex-col sm:flex-row">
-      <div className="flex flex-col w-full sm:w-1/3 md:w-2/5 bg-gray-300 p-2 gap-2">
-        <div className="flex flex-row border-b-2 gap-2 pb-2">
-          <SearchInput />
-          <div>
-            <CreateContact />
-          </div>
+    <div className="flex flex-col bg-gray-300 p-2 gap-2">
+      <div className="flex flex-row border-b-2 gap-2 pb-2">
+        <SearchInput onChange={filter} />
+        <div>
+          <CreateContact />
         </div>
-        {contacts.length ? (
-          <span>
-            {contacts.map((contact) => (
-              <li key={contact.id}>
-                <Link to={`/contacts/${contact.id}`}>
-                  {contact.first || contact.last ? (
-                    <>
-                      {contact.first} {contact.last}
-                    </>
-                  ) : (
-                    <i>No Name</i>
-                  )}{" "}
-                  {contact.favorite && <span>★</span>}
-                </Link>
-              </li>
-            ))}
-          </span>
-        ) : (
-          <span>No contacts</span>
-        )}
       </div>
-      <div className="flex flex-col w-full sm:w-2/3 md:w-3/5">display</div>
+      {filteredContacts.length ? (
+        <ul>
+          {filteredContacts.map((contact) => (
+            <li key={contact.id} className="hover:bg-gray-100 px-2 rounded-sm">
+              <Link to={`/contacts/${contact.id}`}>
+                {contact.first_name || contact.last_name ? (
+                  <>
+                    {contact.first_name} {contact.last_name}
+                  </>
+                ) : (
+                  <i>No Name</i>
+                )}{" "}
+                {contact.favorite && <span>★</span>}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <span>No contacts</span>
+      )}
     </div>
   );
 }

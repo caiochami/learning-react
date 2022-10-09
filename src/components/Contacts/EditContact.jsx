@@ -1,20 +1,20 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { Form } from "react-router-dom";
-import { createContact } from "../../contacts";
+import { Form, redirect } from "react-router-dom";
+import { updateContact } from "../../contacts";
 import Button from "../Button";
 
-export async function storeContact({ request }) {
+export async function action({ request, params }) {
   const formData = await request.formData();
 
-  const data = Object.fromEntries(formData);
+  const updates = Object.fromEntries(formData);
 
-  const contacts = await createContact(data);
+  await updateContact(params.contactId, updates);
 
-  return { contacts };
+  return redirect(`/contacts/${params.contactId}`);
 }
 
-export default function CreateContact() {
+export default function EditContact({ contact }) {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -27,7 +27,7 @@ export default function CreateContact() {
 
   return (
     <>
-      <Button onClick={openModal}>New</Button>
+      <Button onClick={openModal}>Edit</Button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -59,7 +59,7 @@ export default function CreateContact() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Create Contact
+                    Edit Contact
                   </Dialog.Title>
                   <Form method="post">
                     <div className="pt-8">
@@ -84,6 +84,7 @@ export default function CreateContact() {
                               type="text"
                               name="first_name"
                               id="first_name"
+                              defaultValue={contact.first_name}
                               autoComplete="given-name"
                               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             />
@@ -102,6 +103,7 @@ export default function CreateContact() {
                               type="text"
                               name="last_name"
                               id="last_name"
+                              defaultValue={contact.last_name}
                               autoComplete="last_name"
                               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             />
@@ -121,6 +123,7 @@ export default function CreateContact() {
                               name="twitter"
                               type="text"
                               autoComplete="twitter"
+                              defaultValue={contact.twitter}
                               placeholder="@jack"
                               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             />
@@ -140,7 +143,7 @@ export default function CreateContact() {
                               name="notes"
                               rows={3}
                               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                              defaultValue={""}
+                              defaultValue={contact.notes}
                             />
                           </div>
                           <p className="mt-2 text-sm text-gray-500">
@@ -159,7 +162,7 @@ export default function CreateContact() {
                         color="success"
                         onClick={closeModal}
                       >
-                        Save
+                        Update
                       </Button>
                     </div>
                   </Form>
