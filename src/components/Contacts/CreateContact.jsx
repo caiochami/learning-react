@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { Form } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import { createContact } from "../../contacts";
 import Button from "../Button";
 
@@ -9,9 +9,9 @@ export async function storeContact({ request }) {
 
   const data = Object.fromEntries(formData);
 
-  const contacts = await createContact(data);
+  const contact = await createContact(data);
 
-  return { contacts };
+  return redirect(`/contacts/${contact.id}`);
 }
 
 export default function CreateContact() {
