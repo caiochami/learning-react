@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Bars3BottomLeftIcon, BellIcon } from "@heroicons/react/24/outline";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import ProfileDropdown from "../components/Layouts/ProfileDropdown";
 import SearchBar from "../components/Layouts/SearchBar";
 import Sidebar from "../components/Layouts/Sidebar/Sidebar";
@@ -9,6 +9,10 @@ import StaticSidebar from "../components/Layouts/Sidebar/StaticSidebar";
 
 export default function Root() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const location = useLocation();
+
+  console.log(location);
 
   return (
     <>

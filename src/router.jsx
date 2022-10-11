@@ -5,6 +5,8 @@ import Root from "./routes/root";
 import ReactRouterTutorialIndex, {
   contactsLoader,
 } from "./routes/react-router-tutorial/index";
+import DesigningReactHooksTheRightWayIndex from "./routes/designing-react-hooks-the-right-way";
+import DesigningReactHooksTheRightWayChapterTwo from "./routes/designing-react-hooks-the-right-way/chapter-two/index";
 
 import {
   CalendarIcon,
@@ -27,8 +29,8 @@ export const navigation = [
     current: false,
   },
   {
-    name: "Designing React Hooks the Right Way ",
-    href: null,
+    name: "Designing React Hooks the Right Way",
+    href: "/designing-react-hooks-the-right-way",
     icon: UsersIcon,
     children: [],
     current: false,
@@ -69,13 +71,21 @@ export default createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        path: "/designing-react-hooks-the-right-way",
+        element: <DesigningReactHooksTheRightWayIndex />,
+      },
+      {
+        path: "/designing-react-hooks-the-right-way/chapter-two",
+        element: <DesigningReactHooksTheRightWayChapterTwo />,
+      },
+      {
         path: "/react-router-tutorial",
         element: <ReactRouterTutorialIndex />,
         loader: contactsLoader,
         action: storeContact,
       },
       {
-        path: "contacts/:contactId",
+        path: "/react-router-tutorial/contacts/:contactId",
         element: <Contact />,
         loader: contactLoader,
         action: updateContact,

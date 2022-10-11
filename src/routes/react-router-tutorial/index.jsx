@@ -36,7 +36,7 @@ export default function Index() {
         <ul>
           {filteredContacts.map((contact) => (
             <li key={contact.id} className="hover:bg-gray-100 px-2 rounded-sm">
-              <Link to={`/contacts/${contact.id}`}>
+              <Link to={`/react-router-tutorial/contacts/${contact.id}`}>
                 {contact.first_name || contact.last_name ? (
                   <>
                     {contact.first_name} {contact.last_name}
