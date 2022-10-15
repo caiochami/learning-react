@@ -17,17 +17,11 @@ import {
   UsersIcon,
 } from "@heroicons/react/24/outline";
 
-import { storeContact } from "./components/Contacts/CreateContact";
+import { action as storeAction } from "./components/Contacts/CreateContact";
 import { action as updateContact } from "./components/Contacts/EditContact";
+import { action as destroyAction } from "./components/Contacts/DeleteContact";
 
 export const navigation = [
-  {
-    name: "Dashboard",
-    href: null,
-    icon: HomeIcon,
-    children: [],
-    current: false,
-  },
   {
     name: "Designing React Hooks the Right Way",
     href: "/designing-react-hooks-the-right-way",
@@ -40,27 +34,6 @@ export const navigation = [
     href: "/react-router-tutorial",
     icon: FolderIcon,
     current: true,
-  },
-  {
-    name: "Calendar",
-    href: null,
-    icon: CalendarIcon,
-    children: [],
-    current: false,
-  },
-  {
-    name: "Documents",
-    href: null,
-    icon: InboxIcon,
-    children: [],
-    current: false,
-  },
-  {
-    name: "Reports",
-    href: null,
-    icon: ChartBarIcon,
-    children: [],
-    current: false,
   },
 ];
 
@@ -82,13 +55,18 @@ export default createBrowserRouter([
         path: "/react-router-tutorial",
         element: <ReactRouterTutorialIndex />,
         loader: contactsLoader,
-        action: storeContact,
+        action: storeAction,
       },
       {
         path: "/react-router-tutorial/contacts/:contactId",
         element: <Contact />,
         loader: contactLoader,
         action: updateContact,
+      },
+      {
+        path: "/react-router-tutorial/contacts/:contactId/destroy",
+        action: destroyAction,
+        errorElement: <div>Oops! There was an error.</div>,
       },
     ],
   },

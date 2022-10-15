@@ -1,21 +1,30 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { Form, redirect } from "react-router-dom";
 import { createContact } from "../../contacts";
 import Button from "../Button";
+import { faker } from "@faker-js/faker";
 
-export async function storeContact({ request }) {
+export async function action({ request }) {
   const formData = await request.formData();
 
   const data = Object.fromEntries(formData);
 
   const contact = await createContact(data);
 
-  return redirect(`/contacts/${contact.id}`);
+  return redirect(`/react-router-tutorial/contacts/${contact.id}`);
 }
 
 export default function CreateContact() {
   let [isOpen, setIsOpen] = useState(false);
+
+  const firstNameEl = useRef();
+
+  const lastNameEl = useRef();
+
+  const twitterEl = useRef();
+
+  const notesEl = useRef();
 
   function closeModal() {
     setIsOpen(false);
@@ -24,6 +33,16 @@ export default function CreateContact() {
   function openModal() {
     setIsOpen(true);
   }
+
+  const generateFakeData = () => {
+    firstNameEl.current.defaultValue = faker.name.firstName();
+
+    lastNameEl.current.defaultValue = faker.name.lastName();
+
+    twitterEl.current.defaultValue = faker.name.firstName().toLowerCase();
+
+    notesEl.current.defaultValue = faker.random.words(15);
+  };
 
   return (
     <>
@@ -61,106 +80,108 @@ export default function CreateContact() {
                   >
                     Create Contact
                   </Dialog.Title>
-                  <Form method="post">
-                    <div className="pt-8">
-                      <div>
-                        <h3 className="text-lg font-medium leading-6 text-gray-900">
-                          Personal Information
-                        </h3>
-                        <p className="mt-1 text-sm text-gray-500">
-                          Use a permanent address where you can receive mail.
-                        </p>
+
+                  <Dialog.Description>
+                    This will permanently deactivate your account
+                  </Dialog.Description>
+
+                  <Form method="post" action="/react-router-tutorial">
+                    <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                      <div className="sm:col-span-3">
+                        <label
+                          htmlFor="first_name"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          First name
+                        </label>
+                        <div className="mt-1">
+                          <input
+                            type="text"
+                            ref={firstNameEl}
+                            name="first_name"
+                            id="first_name"
+                            autoComplete="given-name"
+                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          />
+                        </div>
                       </div>
-                      <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        <div className="sm:col-span-3">
-                          <label
-                            htmlFor="first_name"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            First name
-                          </label>
-                          <div className="mt-1">
-                            <input
-                              type="text"
-                              name="first_name"
-                              id="first_name"
-                              autoComplete="given-name"
-                              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            />
-                          </div>
-                        </div>
 
-                        <div className="sm:col-span-3">
-                          <label
-                            htmlFor="last_name"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Last name
-                          </label>
-                          <div className="mt-1">
-                            <input
-                              type="text"
-                              name="last_name"
-                              id="last_name"
-                              autoComplete="last_name"
-                              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            />
-                          </div>
+                      <div className="sm:col-span-3">
+                        <label
+                          htmlFor="last_name"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Last name
+                        </label>
+                        <div className="mt-1">
+                          <input
+                            type="text"
+                            ref={lastNameEl}
+                            name="last_name"
+                            id="last_name"
+                            autoComplete="last_name"
+                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          />
                         </div>
+                      </div>
 
-                        <div className="sm:col-span-4">
-                          <label
-                            htmlFor="email"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Twitter
-                          </label>
-                          <div className="mt-1">
-                            <input
-                              id="twitter"
-                              name="twitter"
-                              type="text"
-                              autoComplete="twitter"
-                              placeholder="@jack"
-                              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            />
-                          </div>
+                      <div className="sm:col-span-4">
+                        <label
+                          htmlFor="email"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Twitter
+                        </label>
+                        <div className="mt-1">
+                          <input
+                            id="twitter"
+                            name="twitter"
+                            ref={twitterEl}
+                            type="text"
+                            autoComplete="twitter"
+                            placeholder="@jack"
+                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          />
                         </div>
+                      </div>
 
-                        <div className="sm:col-span-6">
-                          <label
-                            htmlFor="notes"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Notes
-                          </label>
-                          <div className="mt-1">
-                            <textarea
-                              id="notes"
-                              name="notes"
-                              rows={3}
-                              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                              defaultValue={""}
-                            />
-                          </div>
-                          <p className="mt-2 text-sm text-gray-500">
-                            Write a few sentences about yourself.
-                          </p>
+                      <div className="sm:col-span-6">
+                        <label
+                          htmlFor="notes"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Notes
+                        </label>
+                        <div className="mt-1">
+                          <textarea
+                            id="notes"
+                            ref={notesEl}
+                            name="notes"
+                            rows={3}
+                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            defaultValue={""}
+                          />
                         </div>
+                        <p className="mt-2 text-sm text-gray-500">
+                          Write a few sentences about yourself.
+                        </p>
                       </div>
                     </div>
 
-                    <div className="mt-4 flex justify-end gap-2">
-                      <Button onClick={closeModal} color="secondary">
-                        Cancel
-                      </Button>
-                      <Button
-                        type="submit"
-                        color="success"
-                        onClick={closeModal}
-                      >
-                        Save
-                      </Button>
+                    <div className="mt-4 flex justify-between gap-2">
+                      <Button onClick={generateFakeData}>Generate</Button>
+                      <div className="flex gap-2">
+                        <Button onClick={closeModal} color="secondary">
+                          Cancel
+                        </Button>
+                        <Button
+                          type="submit"
+                          color="success"
+                          onClick={closeModal}
+                        >
+                          Save
+                        </Button>
+                      </div>
                     </div>
                   </Form>
                 </Dialog.Panel>

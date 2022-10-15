@@ -1,5 +1,6 @@
 import { Form, useLoaderData } from "react-router-dom";
 import Avatar from "../../components/Avatar";
+import DeleteContact from "../../components/Contacts/DeleteContact";
 import EditContact from "../../components/Contacts/EditContact";
 import { getContact } from "../../contacts";
 import { getInitials } from "../../utils/helpers";
@@ -10,6 +11,8 @@ export async function contactLoader({ params }) {
 
 export default function Contact() {
   const contact = useLoaderData();
+
+  console.log(contact);
 
   const name =
     contact.first_name || contact.last_name
@@ -41,19 +44,10 @@ export default function Contact() {
 
       {contact.notes && <p>{contact.notes}</p>}
       <div>
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center gap-2">
           <EditContact contact={contact} />
-          <Form
-            method="post"
-            action="destroy"
-            onSubmit={(event) => {
-              if (!confirm("Please confirm you want to delete this record.")) {
-                event.preventDefault();
-              }
-            }}
-          >
-            <button type="submit">Delete</button>
-          </Form>
+
+          <DeleteContact id={contact.id} />
         </div>
       </div>
     </div>

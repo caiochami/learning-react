@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Bars3BottomLeftIcon, BellIcon } from "@heroicons/react/24/outline";
 
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigation } from "react-router-dom";
 import ProfileDropdown from "../components/Layouts/ProfileDropdown";
 import SearchBar from "../components/Layouts/SearchBar";
 import Sidebar from "../components/Layouts/Sidebar/Sidebar";
@@ -10,9 +10,7 @@ import StaticSidebar from "../components/Layouts/Sidebar/StaticSidebar";
 export default function Root() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const location = useLocation();
-
-  console.log(location);
+  const navigation = useNavigation();
 
   return (
     <>
@@ -58,7 +56,12 @@ export default function Root() {
               </div>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
                 <div className="py-4">
-                  <div className="p-2 rounded-lg border-4 border-dashed border-gray-200">
+                  <div className="relative p-2 rounded-lg border-4 border-dashed border-gray-200">
+                    <div
+                      className={`absolute right-0 top-0 bg-gray-200 opacity-50 w-full h-full ${
+                        navigation.state != "loading" && "hidden"
+                      }`}
+                    ></div>
                     <Outlet />
                   </div>
                 </div>

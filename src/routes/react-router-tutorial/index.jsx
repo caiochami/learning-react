@@ -1,7 +1,11 @@
-import React from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import React, { useRef } from "react";
+import { Form, Link, useLoaderData } from "react-router-dom";
+import Button from "../../components/Button";
 import CreateContact from "../../components/Contacts/CreateContact";
+import DeleteContact from "../../components/Contacts/DeleteContact";
 import SearchInput from "../../components/SearchInput";
+import Row from "../../components/Table/Row";
+import Table from "../../components/Table/Table";
 import { getContacts } from "../../contacts";
 
 export async function contactsLoader() {
@@ -12,46 +16,41 @@ export async function contactsLoader() {
 export default function Index() {
   const { contacts } = useLoaderData();
 
-  let filteredContacts = contacts;
-
-  const filter = (event) => {
-    if (!event.target.value) return contacts;
-
-    filteredContacts = contacts.filter(
-      (contact) =>
-        contact.first_name == event.target.value ||
-        contact.last_name == event.target.value
-    );
-  };
+  const filter = () => null;
 
   return (
-    <div className="flex flex-col bg-gray-300 p-2 gap-2">
-      <div className="flex flex-row border-b-2 gap-2 pb-2">
+    <div className="px-4 sm:px-6 lg:px-8">
+      <div className="sm:flex sm:items-center mb-4">
         <SearchInput onChange={filter} />
-        <div>
+        <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
           <CreateContact />
         </div>
       </div>
-      {filteredContacts.length ? (
-        <ul>
-          {filteredContacts.map((contact) => (
-            <li key={contact.id} className="hover:bg-gray-100 px-2 rounded-sm">
-              <Link to={`/react-router-tutorial/contacts/${contact.id}`}>
-                {contact.first_name || contact.last_name ? (
-                  <>
-                    {contact.first_name} {contact.last_name}
-                  </>
-                ) : (
-                  <i>No Name</i>
-                )}{" "}
-                {contact.favorite && <span>★</span>}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <span>No contacts</span>
-      )}
+
+      <Table columns={["Id", "Name", "Action"]} isEmpty={!contacts.length}>
+        {contacts.map(({ id, first_name, last_name, favorite }) => (
+          <tr key={id}>
+            <Row>{id}</Row>
+            <Row>
+              {first_name || last_name ? (
+                <>
+                  {first_name} {last_name}
+                </>
+              ) : (
+                <i>No Name</i>
+              )}{" "}
+              {favorite && <span>★</span>}
+            </Row>
+            <Row>
+              <Button className="mr-2" color="success">
+                <Link to={`/react-router-tutorial/contacts/${id}`}>Edit</Link>
+              </Button>
+
+              <DeleteContact id={id} />
+            </Row>
+          </tr>
+        ))}
+      </Table>
     </div>
   );
 }

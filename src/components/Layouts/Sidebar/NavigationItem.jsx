@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { classNames } from "../../../utils/helpers";
 
 export default function NavigationItem({ item }) {
@@ -8,21 +8,23 @@ export default function NavigationItem({ item }) {
 
   return (
     <div className="flex flex-col">
-      <Link
+      <NavLink
         to={!item.children?.length ? item.href : "#"}
-        className={classNames(
-          item.current
-            ? "bg-indigo-800 text-white"
-            : "text-indigo-100 hover:bg-indigo-600",
-          "group flex flex-row px-2 py-2 text-base font-medium rounded-md"
-        )}
+        className={({ isActive, isPending }) =>
+          classNames(
+            isActive
+              ? "bg-indigo-800 text-white"
+              : "text-indigo-100 hover:bg-indigo-600",
+            "group flex flex-row px-2 py-2 text-base font-medium rounded-md"
+          )
+        }
       >
         <item.icon
           className="mr-4 h-6 w-6 flex-shrink-0 text-indigo-300"
           aria-hidden="true"
         />
         {item.name}
-      </Link>
+      </NavLink>
       {!!item.children?.length && (
         <Transition
           show={isOpen}
