@@ -12,6 +12,8 @@ export async function action({ request }) {
 
   const contact = await createContact(data);
 
+  console.log(data, contact);
+
   return redirect(`/react-router-tutorial/contacts/${contact.id}`);
 }
 
@@ -41,7 +43,7 @@ export default function CreateContact() {
 
     twitterEl.current.defaultValue = faker.name.firstName().toLowerCase();
 
-    notesEl.current.defaultValue = faker.random.words(15);
+    notesEl.current.value = faker.random.words(15);
   };
 
   return (

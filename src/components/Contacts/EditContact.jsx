@@ -9,7 +9,12 @@ export async function action({ request, params }) {
 
   const updates = Object.fromEntries(formData);
 
-  await updateContact(params.contactId, updates);
+  console.log(formData.get("favorite"), !(formData.get("favorite") === "true"));
+
+  await updateContact(params.contactId, {
+    favorite: !(formData.get("favorite") === "true"),
+    ...updates,
+  });
 
   return redirect(`/react-router-tutorial/contacts/${params.contactId}`);
 }

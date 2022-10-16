@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Bars3BottomLeftIcon, BellIcon } from "@heroicons/react/24/outline";
 
-import { Outlet, useLocation, useNavigation } from "react-router-dom";
-import ProfileDropdown from "../components/Layouts/ProfileDropdown";
-import SearchBar from "../components/Layouts/SearchBar";
-import Sidebar from "../components/Layouts/Sidebar/Sidebar";
-import StaticSidebar from "../components/Layouts/Sidebar/StaticSidebar";
+import { Outlet, useNavigation } from "react-router-dom";
+import ProfileDropdown from "./ProfileDropdown";
+import SearchBar from "./SearchBar";
+import Sidebar from "./Sidebar/Sidebar";
+import StaticSidebar from "./Sidebar/StaticSidebar";
 
-export default function Root() {
+export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navigation = useNavigation();

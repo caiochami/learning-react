@@ -1,52 +1,62 @@
-import React, { useRef } from "react";
-import { Form, Link, useLoaderData } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import { Form, Link, useLoaderData, useNavigation } from "react-router-dom";
 import Button from "../../components/Button";
 import CreateContact from "../../components/Contacts/CreateContact";
 import DeleteContact from "../../components/Contacts/DeleteContact";
+import EditContact from "../../components/Contacts/EditContact";
 import SearchInput from "../../components/SearchInput";
 import Row from "../../components/Table/Row";
 import Table from "../../components/Table/Table";
 import { getContacts } from "../../contacts";
 
-export async function contactsLoader() {
-  const contacts = await getContacts();
+export async function contactsLoader({ request }) {
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q");
+  const contacts = await getContacts(q);
   return { contacts };
 }
 
 export default function Index() {
-  const { contacts } = useLoaderData();
+  const { contacts, q } = useLoaderData();
 
-  const filter = () => null;
+  const navigation = useNavigation();
+
+  const searching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has("q");
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center mb-4">
-        <SearchInput onChange={filter} />
+        <div>
+          <div>
+            <SearchInput defaultValue={q} />
+          </div>
+          {searching && <div>Searching...</div>}
+        </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
           <CreateContact />
         </div>
       </div>
 
       <Table columns={["Id", "Name", "Action"]} isEmpty={!contacts.length}>
-        {contacts.map(({ id, first_name, last_name, favorite }) => (
-          <tr key={id}>
-            <Row>{id}</Row>
+        {contacts.map((contact) => (
+          <tr key={contact.id}>
+            <Row>{contact.id}</Row>
             <Row>
-              {first_name || last_name ? (
+              {contact.first_name || contact.last_name ? (
                 <>
-                  {first_name} {last_name}
+                  {contact.first_name} {contact.last_name}
                 </>
               ) : (
                 <i>No Name</i>
               )}{" "}
-              {favorite && <span>★</span>}
+              {contact.favorite && <span>★</span>}
             </Row>
             <Row>
-              <Button className="mr-2" color="success">
-                <Link to={`/react-router-tutorial/contacts/${id}`}>Edit</Link>
-              </Button>
+              <EditContact contact={contact} />
 
-              <DeleteContact id={id} />
+              <DeleteContact id={contact.id} />
             </Row>
           </tr>
         ))}

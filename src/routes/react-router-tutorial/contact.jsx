@@ -2,6 +2,7 @@ import { Form, useLoaderData } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import DeleteContact from "../../components/Contacts/DeleteContact";
 import EditContact from "../../components/Contacts/EditContact";
+import Favorite from "../../components/Contacts/Favorite";
 import { getContact } from "../../contacts";
 import { getInitials } from "../../utils/helpers";
 
@@ -11,8 +12,6 @@ export async function contactLoader({ params }) {
 
 export default function Contact() {
   const contact = useLoaderData();
-
-  console.log(contact);
 
   const name =
     contact.first_name || contact.last_name
@@ -38,7 +37,7 @@ export default function Contact() {
           )}
         </h1>
         <div className="absolute top-0 right-0">
-          <Favorite contact={contact} />
+          <Favorite favorite={contact.favorite} />
         </div>
       </div>
 
@@ -51,21 +50,5 @@ export default function Contact() {
         </div>
       </div>
     </div>
-  );
-}
-
-function Favorite({ contact }) {
-  // yes, this is a `let` for later
-  let favorite = contact.favorite;
-  return (
-    <Form method="post">
-      <button
-        name="favorite"
-        value={favorite ? "false" : "true"}
-        aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
-      >
-        {favorite ? "★" : "☆"}
-      </button>
-    </Form>
   );
 }

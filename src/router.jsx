@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./error-page";
 import Contact, { contactLoader } from "./routes/react-router-tutorial/contact";
-import Root from "./routes/root";
+import Layout from "./components/Layouts/Layout";
 import ReactRouterTutorialIndex, {
   contactsLoader,
 } from "./routes/react-router-tutorial/index";
@@ -40,7 +40,7 @@ export const navigation = [
 export default createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -56,6 +56,12 @@ export default createBrowserRouter([
         element: <ReactRouterTutorialIndex />,
         loader: contactsLoader,
         action: storeAction,
+      },
+      {
+        path: "/react-router-tutorial/contacts/:contactId",
+        element: <Contact />,
+        loader: contactLoader,
+        action: updateContact,
       },
       {
         path: "/react-router-tutorial/contacts/:contactId",
