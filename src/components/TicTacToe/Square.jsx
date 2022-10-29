@@ -1,13 +1,10 @@
 import React from "react";
-import { useState } from "react";
 
-export default function Square() {
-  const [value, setValue] = useState(null);
-
+export default function Square({ value, onClick }) {
   return (
     <div
-      className="border text-center cursor-pointer h-15 w-15"
-      onClick={() => setValue("X")}
+      className="border text-center cursor-pointer h-8 w-8"
+      onClick={onClick}
     >
       {value}
     </div>
