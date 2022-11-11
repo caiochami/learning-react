@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Bars3BottomLeftIcon, BellIcon } from "@heroicons/react/24/outline";
 
-import { Outlet, useNavigation } from "react-router-dom";
+import { useNavigation } from "react-router-dom";
 import ProfileDropdown from "./ProfileDropdown";
 import SearchBar from "./SearchBar";
 import Sidebar from "./Sidebar/Sidebar";
 import StaticSidebar from "./Sidebar/StaticSidebar";
 
-export default function Layout() {
+export default function Layout({ title, children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navigation = useNavigation();
@@ -51,7 +51,7 @@ export default function Layout() {
             <div className="py-6">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
                 <h1 className="text-2xl font-semibold text-gray-900">
-                  Dashboard
+                  {title}
                 </h1>
               </div>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
@@ -62,7 +62,7 @@ export default function Layout() {
                         navigation.state != "loading" && "hidden"
                       }`}
                     ></div>
-                    <Outlet />
+                    {children}
                   </div>
                 </div>
               </div>

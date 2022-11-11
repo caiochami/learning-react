@@ -49,8 +49,6 @@ export default function Game() {
     setXIsNext(move % 2 === 0);
   }
 
-  console.log(history);
-
   return (
     <div className="flex flex-row gap-2 mt-2">
       <div className="game-board">
