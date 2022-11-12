@@ -10,6 +10,7 @@ import ReactRouterTutorialIndex, {
 } from "./routes/react-router-tutorial/index";
 import ThirtyDaysOfReactIndex from "./routes/30-days-of-react/index";
 import ThirtyDaysOfReactDayTwoIndex from "./routes/30-days-of-react/day-two";
+import ThirtyDaysOfReactDayThreeIndex from "./routes/30-days-of-react/day-three";
 
 import {
   FolderIcon,
@@ -91,7 +92,10 @@ export default createBrowserRouter([
       {
         path: "/30-days-of-react/day-two",
         element: <ThirtyDaysOfReactDayTwoIndex />,
-        index: true,
+      },
+      {
+        path: "/30-days-of-react/day-three",
+        element: <ThirtyDaysOfReactDayThreeIndex />,
       },
     ],
   },

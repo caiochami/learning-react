@@ -32,7 +32,9 @@ const main = (
     <p className="mt-4">Songs:</p>
     <ul className="list-disc list-inside">
       {songNames.map((songName) => (
-        <li className="text-xs">{songName}</li>
+        <li className="text-xs" key={songName}>
+          {songName}
+        </li>
       ))}
     </ul>
   </div>
