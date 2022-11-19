@@ -17,7 +17,7 @@ export default function index() {
       "text-gray-800 rounded-2xl px-2"
     );
 
-  const pages = ["day-two", "day-three", "day-four"];
+  const pages = ["day-two", "day-three", "day-four", "day-five"];
 
   return (
     <Layout title="30 Days Of React">
