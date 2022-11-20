@@ -17,7 +17,7 @@ export default function index() {
       "text-gray-800 rounded-2xl px-2"
     );
 
-  const pages = ["day-two", "day-three", "day-four", "day-five"];
+  const pages = ["day-two", "day-three", "day-four", "day-five", "day-six"];
 
   return (
     <Layout title="30 Days Of React">
@@ -46,6 +46,18 @@ export default function index() {
           </NavLink>
         ))}
       </div>
+
+      {location.pathname === "/30-days-of-react" && (
+        <p>
+          Tutorial:
+          <a
+            className="text-blue-500 ml-2"
+            href="https://github.com/Asabeneh/30-Days-Of-React"
+          >
+            30 Days of react
+          </a>
+        </p>
+      )}
 
       <Outlet />
     </Layout>

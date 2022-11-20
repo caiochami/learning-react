@@ -14,6 +14,16 @@ export function getInitials(name) {
   return initials;
 }
 
+export function hexaColor() {
+  let str = "0123456789abcdef";
+  let color = "";
+  for (let i = 0; i < 6; i++) {
+    let index = Math.floor(Math.random() * str.length);
+    color += str[index];
+  }
+  return "#" + color;
+}
+
 export function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
@@ -32,4 +42,35 @@ export function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+export function isPrime(number) {
+  let isPrime = true;
+
+  if (number === 1) {
+    return true;
+  } else if (number > 1) {
+    for (let i = 2; i < number; i++) {
+      if (number % i == 0) {
+        isPrime = false;
+        break;
+      }
+    }
+
+    return isPrime;
+  } else {
+    return false;
+  }
+}
+
+export function getNumberType(number) {
+  if (isPrime(number)) {
+    return "prime";
+  }
+
+  if (number % 2 === 0) {
+    return "even";
+  }
+
+  return "odd";
 }
