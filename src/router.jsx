@@ -10,11 +10,9 @@ import ReactRouterTutorialIndex, {
 } from "./routes/react-router-tutorial/index";
 
 import ThirtyDaysOfReactIndex from "./routes/30-days-of-react/index";
-import ThirtyDaysOfReactDayTwoIndex from "./routes/30-days-of-react/day-two";
-import ThirtyDaysOfReactDayThreeIndex from "./routes/30-days-of-react/day-three";
-import ThirtyDaysOfReactDayFourIndex from "./routes/30-days-of-react/day-four";
-import ThirtyDaysOfReactDayFiveIndex from "./routes/30-days-of-react/day-five";
-import ThirtyDaysOfReactDaySixIndex from "./routes/30-days-of-react/day-six";
+import ThirtyDaysOfReactPage, {
+  pageLoader,
+} from "./routes/30-days-of-react/page";
 
 import {
   FolderIcon,
@@ -94,24 +92,9 @@ export default createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/30-days-of-react/day-two",
-        element: <ThirtyDaysOfReactDayTwoIndex />,
-      },
-      {
-        path: "/30-days-of-react/day-three",
-        element: <ThirtyDaysOfReactDayThreeIndex />,
-      },
-      {
-        path: "/30-days-of-react/day-four",
-        element: <ThirtyDaysOfReactDayFourIndex />,
-      },
-      {
-        path: "/30-days-of-react/day-five",
-        element: <ThirtyDaysOfReactDayFiveIndex />,
-      },
-      {
-        path: "/30-days-of-react/day-six",
-        element: <ThirtyDaysOfReactDaySixIndex />,
+        path: "/30-days-of-react/:page",
+        element: <ThirtyDaysOfReactPage />,
+        loader: pageLoader,
       },
     ],
   },

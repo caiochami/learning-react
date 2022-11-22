@@ -1,4 +1,4 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import DeleteContact from "../../components/Contacts/DeleteContact";
 import EditContact from "../../components/Contacts/EditContact";

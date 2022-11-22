@@ -5,6 +5,7 @@ import Layout from "../../components/Layouts/Layout";
 import { classNames } from "../../utils/helpers";
 
 import { replace, capitalize } from "lodash";
+import { components } from "./page";
 
 export default function index() {
   const location = useLocation();
@@ -16,8 +17,6 @@ export default function index() {
         : "bg-gray-200 hover:bg-gray-100 text-gray-700",
       "text-gray-800 rounded-2xl px-2"
     );
-
-  const pages = ["day-two", "day-three", "day-four", "day-five", "day-six"];
 
   return (
     <Layout title="30 Days Of React">
@@ -36,7 +35,7 @@ export default function index() {
           Intro
         </NavLink>
 
-        {pages.map((page) => (
+        {Object.keys(components).map((page) => (
           <NavLink
             className={isActive}
             to={`/30-days-of-react/${page}`}
