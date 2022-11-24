@@ -1,6 +1,6 @@
 import { CheckIcon, ClockIcon } from "@heroicons/react/24/outline";
 import React from "react";
-import Button from "../../../components/Button";
+import Button from "../../Button";
 
 const tools = (
   <div className="bg-gray-200 flex flex-col text-center p-2 gap-4">
@@ -75,7 +75,7 @@ const userCard = (
   </div>
 );
 
-export default function index() {
+export default function DayThree() {
   return (
     <div className="flex flex-col gap-2">
       {tools}

@@ -14,7 +14,7 @@ const Block = () => {
   );
 };
 
-export default function index() {
+export default function DayFour() {
   return (
     <div className="flex flex-col">
       <Block />

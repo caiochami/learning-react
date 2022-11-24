@@ -60,7 +60,7 @@ const Population = ({ country, population }) => {
   const percentage = Math.trunc((population / totalPopulation) * 100);
 
   return (
-    <div className="flex flex-row gap-2 border border-white" key={index}>
+    <div className="flex flex-row gap-2 border border-white">
       <div className="w-1/6">{country}</div>
       <div className="w-4/6">
         <div
@@ -92,7 +92,7 @@ const WorldPopulation = () => {
   );
 };
 
-export default function index() {
+export default function DaySix() {
   return (
     <div className="flex flex-col gap-4">
       <NumberGenerator />

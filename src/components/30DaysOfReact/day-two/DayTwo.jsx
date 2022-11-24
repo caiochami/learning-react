@@ -46,7 +46,7 @@ const footer = (
   </div>
 );
 
-export default function index() {
+export default function DayTwo() {
   return (
     <div className="flex flex-col gap-4 divide-y-2">
       {header}

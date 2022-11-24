@@ -2,12 +2,12 @@ import _ from "lodash";
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 
-import DayTwo from "./day-two";
-import DayThree from "./day-three";
-import DayFour from "./day-four";
-import DayFive from "./day-five";
-import DaySix from "./day-six";
-import DayEight from "./day-eight";
+import DayTwo from "../../components/30DaysOfReact/day-two/DayTwo";
+import DayThree from "../../components/30DaysOfReact/day-three/DayThree";
+import DayFour from "../../components/30DaysOfReact/day-four/DayFour";
+import DayFive from "../../components/30DaysOfReact/day-five/DayFive";
+import DaySix from "../../components/30DaysOfReact/day-six/DaySix";
+import DayEight from "../../components/30DaysOfReact/day-eight/DayEight";
 
 export async function pageLoader({ params }) {
   return params.page;
@@ -23,9 +23,7 @@ export const components = {
 };
 
 export default function page() {
-  const page = useLoaderData();
-
-  const PageComponent = components[page];
+  const PageComponent = components[useLoaderData()] ?? DayTwo;
 
   return <PageComponent />;
 }

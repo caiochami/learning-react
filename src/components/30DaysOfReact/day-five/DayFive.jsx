@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "../../../components/Button";
+import Button from "../../Button";
 
 const Subscribe = ({ form, updateForm, onSubscribe, isSubscribed }) => {
   return (
@@ -39,7 +39,7 @@ const Subscribe = ({ form, updateForm, onSubscribe, isSubscribed }) => {
     </div>
   );
 };
-export default function index() {
+export default function DayFive() {
   const [form, setForm] = useState({
     first_name: "",
     last_name: "",

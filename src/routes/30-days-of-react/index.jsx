@@ -20,7 +20,7 @@ export default function index() {
 
   return (
     <Layout title="30 Days Of React">
-      <div className="bg-gray-500 border rounded-3xl p-2 mb-6 flex flex-row gap-2">
+      <div className="bg-gray-500 border rounded-3xl p-2 mb-6 flex flex-row gap-2 overflow-x-auto">
         <NavLink
           className={() =>
             classNames(
@@ -52,6 +52,7 @@ export default function index() {
           <a
             className="text-blue-500 ml-2"
             href="https://github.com/Asabeneh/30-Days-Of-React"
+            target="_blank"
           >
             30 Days of react
           </a>
