@@ -1,4 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
+import { PencilIcon } from "@heroicons/react/24/outline";
 import { Fragment, useState } from "react";
 import { Form, redirect } from "react-router-dom";
 import { updateContact } from "../../contacts";
@@ -9,14 +10,9 @@ export async function action({ request, params }) {
 
   const updates = Object.fromEntries(formData);
 
-  console.log(formData.get("favorite"), !(formData.get("favorite") === "true"));
+  await updateContact(params.contactId, updates);
 
-  await updateContact(params.contactId, {
-    favorite: !(formData.get("favorite") === "true"),
-    ...updates,
-  });
-
-  return redirect(`/react-router-tutorial/contacts/${params.contactId}`);
+  return redirect("/react-router-tutorial");
 }
 
 export default function EditContact({ contact }) {
@@ -32,7 +28,9 @@ export default function EditContact({ contact }) {
 
   return (
     <>
-      <Button onClick={openModal}>Edit</Button>
+      <Button color="success" onClick={openModal}>
+        <PencilIcon className="w-5 h-6" />
+      </Button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -66,7 +64,10 @@ export default function EditContact({ contact }) {
                   >
                     Edit Contact
                   </Dialog.Title>
-                  <Form method="post">
+                  <Form
+                    method="put"
+                    action={`/react-router-tutorial/contacts/${contact.id}`}
+                  >
                     <div className="pt-8">
                       <div>
                         <h3 className="text-lg font-medium leading-6 text-gray-900">

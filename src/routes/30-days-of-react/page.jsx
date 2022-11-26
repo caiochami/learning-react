@@ -8,6 +8,7 @@ import DayFour from "../../components/30DaysOfReact/day-four/DayFour";
 import DayFive from "../../components/30DaysOfReact/day-five/DayFive";
 import DaySix from "../../components/30DaysOfReact/day-six/DaySix";
 import DayEight from "../../components/30DaysOfReact/day-eight/DayEight";
+import DayNine from "../../components/30DaysOfReact/day-nine/DayNine";
 
 export async function pageLoader({ params }) {
   return params.page;
@@ -20,6 +21,7 @@ export const components = {
   "day-five": DayFive,
   "day-six": DaySix,
   "day-eight": DayEight,
+  "day-nine": DayNine,
 };
 
 export default function page() {

@@ -24,6 +24,7 @@ import {
 import { action as storeAction } from "./components/Contacts/CreateContact";
 import { action as updateContact } from "./components/Contacts/EditContact";
 import { action as destroyAction } from "./components/Contacts/DeleteContact";
+import { action as favoriteAction } from "./components/Contacts/Favorite";
 
 export const navigation = [
   {
@@ -78,6 +79,10 @@ export default createBrowserRouter([
         element: <Contact />,
         loader: contactLoader,
         action: updateContact,
+      },
+      {
+        path: "/react-router-tutorial/contacts/:contactId/favorite",
+        action: favoriteAction,
       },
       {
         path: "/react-router-tutorial/contacts/:contactId/destroy",

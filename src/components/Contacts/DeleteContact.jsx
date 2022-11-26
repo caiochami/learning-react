@@ -1,3 +1,4 @@
+import { TrashIcon } from "@heroicons/react/24/outline";
 import { Form, redirect } from "react-router-dom";
 import { deleteContact } from "../../contacts";
 import Button from "../Button";
@@ -15,7 +16,7 @@ export default function DeleteContact({ id }) {
       action={`/react-router-tutorial/contacts/${id}/destroy`}
     >
       <Button color="danger" type="submit">
-        Delete
+        <TrashIcon className="w-5 h-6" />
       </Button>
     </Form>
   );

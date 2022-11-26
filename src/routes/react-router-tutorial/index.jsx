@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from "react";
-import { Form, Link, useLoaderData, useNavigation } from "react-router-dom";
-import Button from "../../components/Button";
+import React from "react";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import CreateContact from "../../components/Contacts/CreateContact";
 import DeleteContact from "../../components/Contacts/DeleteContact";
 import EditContact from "../../components/Contacts/EditContact";
+import Favorite from "../../components/Contacts/Favorite";
 import Layout from "../../components/Layouts/Layout";
 import SearchInput from "../../components/SearchInput";
 import Row from "../../components/Table/Row";
@@ -41,7 +41,10 @@ export default function Index() {
           </div>
         </div>
 
-        <Table columns={["Id", "Name", "Action"]} isEmpty={!contacts.length}>
+        <Table
+          columns={["Id", "Name", "Favorite", "Action"]}
+          isEmpty={!contacts.length}
+        >
           {contacts.map((contact) => (
             <tr key={contact.id}>
               <Row>{contact.id}</Row>
@@ -53,12 +56,16 @@ export default function Index() {
                 ) : (
                   <i>No Name</i>
                 )}{" "}
-                {contact.favorite && <span>★</span>}
               </Row>
               <Row>
-                <EditContact contact={contact} />
+                <Favorite contact={contact} />
+              </Row>
+              <Row>
+                <div className="flex gap-2">
+                  <EditContact contact={contact} />
 
-                <DeleteContact id={contact.id} />
+                  <DeleteContact id={contact.id} />
+                </div>
               </Row>
             </tr>
           ))}

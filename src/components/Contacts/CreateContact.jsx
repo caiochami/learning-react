@@ -12,8 +12,6 @@ export async function action({ request }) {
 
   const contact = await createContact(data);
 
-  console.log(data, contact);
-
   return redirect(`/react-router-tutorial/contacts/${contact.id}`);
 }
 
