@@ -8,7 +8,7 @@ import Button from "../../Button";
 export default function CountrySelector() {
   const [country, setCountry] = useState(_.sample(countries));
 
-  const currencies = Object.values(country.currencies).map(
+  const currencies = Object.values(country.currencies ?? []).map(
     (currency) => currency.name
   );
 
@@ -27,15 +27,17 @@ export default function CountrySelector() {
         {country.name.common}
       </div>
       <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
-        <ul>
+        <ul className="overflow-x-auto">
           <li>Capital {country.capital}</li>
           <li>Languages: {Object.values(country.languages).join(",")}</li>
           <li>Population: {Intl.NumberFormat().format(country.population)}</li>
           <li>Currencies: {currencies.join(", ")}</li>
         </ul>
-        <Button className="justify-center" onClick={handleClick}>
-          <ArrowPathIcon className="text-white w-6 h-6" />
-        </Button>
+        <div>
+          <Button className="justify-center" onClick={handleClick}>
+            <ArrowPathIcon className="text-white w-6 h-6" />
+          </Button>
+        </div>
       </div>
     </div>
   );
