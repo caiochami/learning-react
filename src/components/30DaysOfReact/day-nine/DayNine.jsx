@@ -17,7 +17,7 @@ export default function DayNine() {
 
   return (
     <Suspense fallback={<h1>Loading...</h1>}>
-      <div>
+      <div className="mb-3">
         <Button title="Shuffle" onClick={shuffleData}>
           <ArrowPathIcon className="w-5 h-5" />
         </Button>
