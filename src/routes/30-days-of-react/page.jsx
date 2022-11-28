@@ -10,6 +10,7 @@ import DaySix from "../../components/30DaysOfReact/day-six/DaySix";
 import DayEight from "../../components/30DaysOfReact/day-eight/DayEight";
 import DayNine from "../../components/30DaysOfReact/day-nine/DayNine";
 import DayTen from "../../components/30DaysOfReact/day-ten/DayTen";
+import DayEleven from "../../components/30DaysOfReact/day-eleven/DayEleven";
 
 export async function pageLoader({ params }) {
   return params.page;
@@ -24,6 +25,7 @@ export const components = {
   "day-eight": DayEight,
   "day-nine": DayNine,
   "day-ten": DayTen,
+  "day-eleven": DayEleven,
 };
 
 export default function page() {
