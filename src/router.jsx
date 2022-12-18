@@ -1,18 +1,24 @@
+import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./error-page";
 import Contact, { contactLoader } from "./routes/react-router-tutorial/contact";
 import Layout from "./components/Layouts/Layout";
 
-import TicTacToeIndex from "./routes/tic-tac-toe";
+const TicTacToe = lazy(() => import("./routes/tic-tac-toe"));
 
-import ReactRouterTutorialIndex, {
-  contactsLoader,
-} from "./routes/react-router-tutorial/index";
+const ReactRouterTutorial = lazy(() =>
+  import("./routes/react-router-tutorial/index")
+);
 
-import ThirtyDaysOfReactIndex from "./routes/30-days-of-react/index";
-import ThirtyDaysOfReactPage, {
-  pageLoader,
-} from "./routes/30-days-of-react/page";
+import { contactsLoader } from "./routes/react-router-tutorial/index";
+
+const ThirtyDaysOfReact = lazy(() => import("./routes/30-days-of-react/index"));
+
+const ThirtyDaysOfReactPage = lazy(() =>
+  import("./routes/30-days-of-react/page")
+);
+
+import { pageLoader } from "./routes/30-days-of-react/page";
 
 import {
   FolderIcon,
@@ -64,19 +70,31 @@ export default createBrowserRouter([
   },
   {
     path: "/tic-tac-toe",
-    element: <TicTacToeIndex />,
+    element: (
+      <Suspense>
+        <TicTacToe />
+      </Suspense>
+    ),
     errorElement: <ErrorPage />,
   },
   {
     path: "/react-router-tutorial",
-    element: <ReactRouterTutorialIndex />,
+    element: (
+      <Suspense>
+        <ReactRouterTutorial />
+      </Suspense>
+    ),
     loader: contactsLoader,
     action: storeAction,
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/react-router-tutorial/contacts/:contactId",
-        element: <Contact />,
+        element: (
+          <Suspense>
+            <Contact />
+          </Suspense>
+        ),
         loader: contactLoader,
         action: updateContact,
       },
@@ -93,12 +111,20 @@ export default createBrowserRouter([
   },
   {
     path: "/30-days-of-react",
-    element: <ThirtyDaysOfReactIndex />,
+    element: (
+      <Suspense>
+        <ThirtyDaysOfReact />
+      </Suspense>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/30-days-of-react/:page",
-        element: <ThirtyDaysOfReactPage />,
+        element: (
+          <Suspense>
+            <ThirtyDaysOfReactPage />
+          </Suspense>
+        ),
         loader: pageLoader,
       },
     ],
