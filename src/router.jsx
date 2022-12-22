@@ -1,22 +1,19 @@
-import { Suspense, lazy } from "react";
+import { lazyLoad } from "./utils/lazyLoad";
+import { Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./error-page";
 import Contact, { contactLoader } from "./routes/react-router-tutorial/contact";
 import Layout from "./components/Layouts/Layout";
 
-const TicTacToe = lazy(() => import("./routes/tic-tac-toe"));
+const TicTacToe = lazyLoad("../routes/tic-tac-toe");
 
-const ReactRouterTutorial = lazy(() =>
-  import("./routes/react-router-tutorial/index")
-);
+const ReactRouterTutorial = lazyLoad("../routes/react-router-tutorial/index");
 
 import { contactsLoader } from "./routes/react-router-tutorial/index";
 
-const ThirtyDaysOfReact = lazy(() => import("./routes/30-days-of-react/index"));
+const ThirtyDaysOfReact = lazyLoad("../routes/30-days-of-react/index");
 
-const ThirtyDaysOfReactPage = lazy(() =>
-  import("./routes/30-days-of-react/page")
-);
+const ThirtyDaysOfReactPage = lazyLoad("../routes/30-days-of-react/page");
 
 import { pageLoader } from "./routes/30-days-of-react/page";
 
